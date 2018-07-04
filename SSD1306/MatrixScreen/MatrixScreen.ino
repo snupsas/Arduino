@@ -16,7 +16,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 typedef struct
 {
   char symbol;
-  int ofset;
+  int offset;
 } MatrixElement;
   
 void setup()   {                
@@ -36,7 +36,7 @@ void PopulateMatrix(MatrixElement matrixToPopulate[rowSize][colSize])
     for(int col = 0; col < colSize; col++)
     {
         matrixToPopulate[row][col].symbol = (char)random(fromCharacter,toCharacter); //random character from ascii table (from '!' to '~')
-        matrixToPopulate[row][col].ofset = random(row*10, row*20); //random offset between characters
+        matrixToPopulate[row][col].offset = random(row*10, row*20); //random offset between characters
     }
   }
 }
@@ -56,23 +56,23 @@ void MatrixTest()
     {
       for(int row = 0; row < rowSize; row++)
       {            
-        if(record[row][col].ofset > random(30, 128))
+        if(record[row][col].offset > random(30, 128))
         {
-          record[row][col].ofset = random(-15, 0); // reset element position when screen bottom is reached
+          record[row][col].offset = random(-15, 0); // reset element position when screen bottom is reached
           record[row][col].symbol = (char)random(fromCharacter,toCharacter); // generate random character
         }
         
-        display.setCursor(col * columnStep, record[row][col].ofset);
+        display.setCursor(col * columnStep, record[row][col].offset);
         display.print(record[row][col].symbol);
 
         // different column speeds
         if(col % random(1,3) == 0)
         {
-          record[row][col].ofset++;
+          record[row][col].offset++;
         }
         else
         {
-          record[row][col].ofset = record[row][col].ofset + random(1,5);
+          record[row][col].offset = record[row][col].offset + random(1,5);
         }
       }
     }
